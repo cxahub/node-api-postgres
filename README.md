@@ -1,5 +1,6 @@
 # node-api-postgres
 <h2>NodeJS & Express JS app for BTP.</h2>
+This application is for a node, express api server to be used for applications in the BTP environment w/ Cloud Foundry.
 
 <h3>.env</h3>
 You will need to create a .env file in the root for this project and include these keys for your local environment:
