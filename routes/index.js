@@ -1,25 +1,28 @@
 //try {
 
-    var qs = require('qs')
+    // Import security and authentication route utilities.  
+    const passwordgen = require('../middleware/password-gen')
+    const auth = require('./auth')
 
-    //Call queries files and api routes.  
+    // Import data routes.
     const user = require('./user')
     const alert = require('./alert')
     const day = require('./day')
   
-    //User queries.
     module.exports = app => {
 
+        // Security and authentication route utilities.
+        app.use('/api/auth', auth)
+        app.use('/api/passwordgen', passwordgen)
+
+        // Data routes.
         app.use('/api/user', user)
         app.use('/api/alert', alert)
-        app.use('/api/day', day)
+        app.use('/api/day', day) 
+
     }
 
-    
-
-
-
-/*
+    /*
 } catch (e) {
   
     app.get('/', function (req, res) {

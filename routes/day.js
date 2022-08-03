@@ -3,6 +3,8 @@
 
 const Router = require('express-promise-router');
 const db = require('../db');
+const auth = require("../middleware/auth");
+const { admin, service, viewer } = require("../middleware/roles");
 let cacheid = 'day';
 let paramid = '';
 const tableName = 'cxahub.t_day';
@@ -25,7 +27,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 //Get all records.
-router.get('/', chkCache.verifyCache, async (req, res) => {
+router.get('/', [auth, service], chkCache.verifyCache, async (req, res) => {
 
   try {
 
@@ -42,7 +44,7 @@ router.get('/', chkCache.verifyCache, async (req, res) => {
 })
 
 // Get by id.
-router.get('/:id', chkCache.verifyCache, async (req, res) => {
+router.get('/:id', [auth, service], chkCache.verifyCache, async (req, res) => {
 
   try {
 

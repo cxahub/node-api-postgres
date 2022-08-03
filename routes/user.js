@@ -3,6 +3,8 @@
 
 const Router = require('express-promise-router');
 const db = require('../db');
+const auth = require("../middleware/auth");
+const { admin, service, viewer } = require("../middleware/roles");
 let cacheid = 'user';
 let paramid = '';
 const tableName = 'cxahub.t_user';
@@ -25,7 +27,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 //Get all records.
-router.get('/', chkCache.verifyCache, async (req, res) => {
+router.get('/', [auth, service], chkCache.verifyCache, async (req, res) => {
 
   try {
 
@@ -42,7 +44,7 @@ router.get('/', chkCache.verifyCache, async (req, res) => {
 })
 
 // Get by id.
-router.get('/:id', chkCache.verifyCache, async (req, res) => {
+router.get('/:id', [auth, service], chkCache.verifyCache, async (req, res) => {
 
   try {
 
@@ -60,14 +62,14 @@ router.get('/:id', chkCache.verifyCache, async (req, res) => {
 })
 
 // Create record.
-router.post('/', async (req, res) => {
+router.post('/', [auth, service], async (req, res) => {
     const { user_first_name, user_last_name } = request.body
     const { rows } = await db.query(`INSERT INTO ${tableName} (user_first_name, user_last_name ) VALUES ($1, $2) RETURNING *`, [user_first_name, user_last_name])
     res.send(`Record added with ID: ${results.rows[0].id}`)
 })
 
 // Update record.
-router.put('/:id', async (req, res) => {
+router.put('/:id', [auth, service], async (req, res) => {
     const id = parseInt(request.params.id)
     const { user_first_name, user_last_name } = request.body
     const { rows } = await db.query(`UPDATE ${tableName} SET user_first_name = $1, user_last_name = $2 WHERE id = $3`, [user_first_name, user_last_name])
@@ -75,7 +77,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // Delete record.
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', [auth, service], async (req, res) => {
     const id = parseInt(request.params.id)
     const { rows } = await db.query(`DELETE FROM ${tableName} WHERE id = $1`, [id])
     res.send(`Record deleted with ID: ${id}`)
