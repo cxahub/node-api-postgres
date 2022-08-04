@@ -1,6 +1,6 @@
 // Hash encrypted password generator.
 const Router = require('express-promise-router');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const router = new Router();
 

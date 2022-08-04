@@ -1,6 +1,6 @@
 const Router = require('express-promise-router');
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const env = require('dotenv').config();
 const router = new Router();
 

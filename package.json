@@ -4,13 +4,13 @@
   "description": "Node API Application for CXA Hub",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cfenv": "^1.2.4",
     "dotenv": "^16.0.1",

@@ -6,3 +6,4 @@ applications:
   memory: 256M
   services:
   - cxahub-db-dev1
+  - cxahubdev-app-logging
